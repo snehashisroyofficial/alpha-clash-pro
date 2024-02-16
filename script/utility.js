@@ -42,3 +42,8 @@ function setBackgroundColorById(elementId) {
     const highlight = document.getElementById(elementId);
     highlight.classList.add('bg-orange-400');
 }
+
+function removeBackgroundId(elementId) {
+    const highlight = document.getElementById(elementId);
+    highlight.classList.remove('bg-orange-400');
+}

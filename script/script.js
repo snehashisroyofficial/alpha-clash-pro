@@ -19,6 +19,60 @@
  */
 
 
+document.addEventListener('keyup', keyPressEvent)
+
+function keyPressEvent(event) {
+  const keyPress = event.key;    // we find which key i was press
+
+
+  const showOnTheScreen = document.getElementById('current-alphabet');
+  const currentInnerWord = showOnTheScreen.innerText;                           //here we find the word which is showing on the screen 
+  const currentWord = currentInnerWord.toLowerCase();
+
+  if (keyPress === currentWord) {
+    console.log("Nice You type correct Input");
+
+    // target the score id 
+    const currentScoreElement = document.getElementById('currentScore')
+    const currentScoreInner = currentScoreElement.innerText;
+    const currentScore = parseInt(currentScoreInner);
+
+    // update score card 
+    const newScore = currentScore + 1;
+    currentScoreElement.innerText = newScore;
+
+
+    removeBackgroundId(currentWord);
+    continueGame();
+  }
+  else {
+
+    //target the life score card 
+
+    const lifeScoreElement = document.getElementById('life-score');
+    const lifeScoreInnerText = lifeScoreElement.innerText;
+    const lifeScore = parseInt(lifeScoreInnerText);
+
+
+
+    //update the score card 
+    const newLifeScore = lifeScore - 1;
+    // show the score 
+    lifeScoreElement.innerText = newLifeScore;
+
+
+    console.log("Wrong Type!")
+    removeBackgroundId(currentWord);
+    continueGame();
+
+  }
+
+
+}
+
+
+
+
 function play() {
   showHidden('home-screen');
   hideHidden('play-ground');
@@ -42,3 +96,5 @@ function continueGame() {
 
 
 }
+
+
