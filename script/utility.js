@@ -8,13 +8,13 @@
 
 
 
-function showHidden(elementId) {
+function addHidden(elementId) {
     const element = document.getElementById(elementId);
     element.classList.add('hidden')
 
 }
 
-function hideHidden(elementId) {
+function removeHidden(elementId) {
     const element = document.getElementById(elementId);
     element.classList.remove('hidden');
 }
@@ -37,6 +37,21 @@ function getAlphabets() {
 }
 
 
+function getTextElementId(elementId) {
+    const getTextElement = document.getElementById(elementId);
+    const getText = getTextElement.innerText;
+    let Text = parseInt(getText);
+    return Text;
+
+
+}
+
+
+function setTextElement(elementId, value) {
+    const element = document.getElementById(elementId);
+    element.innerText = value;
+
+}
 //set highlight color  that is showing on the screen 
 function setBackgroundColorById(elementId) {
     const highlight = document.getElementById(elementId);
@@ -46,4 +61,10 @@ function setBackgroundColorById(elementId) {
 function removeBackgroundId(elementId) {
     const highlight = document.getElementById(elementId);
     highlight.classList.remove('bg-orange-400');
+}
+
+
+function gameOver() {
+    addHidden('play-ground');
+    removeHidden('final-score');
 }

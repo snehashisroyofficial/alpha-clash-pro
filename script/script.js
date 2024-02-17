@@ -1,15 +1,3 @@
-// function play(){
-
-//   //step:1 hide home screen  | you need to use hidden properties
-
-//   const homeSection = document.getElementById('home-section')
-//   homeSection.classList.add('hidden')
-
-//   //step:1 show the playground   | you need to use remove hidden properties
-// const playGround  = document.getElementById('play-ground')
-// playGround.classList.remove('hidden')
-// }
-
 
 
 /**
@@ -19,66 +7,41 @@
  */
 
 
-document.addEventListener('keyup', keyPressEvent)
 
-function keyPressEvent(event) {
-  const keyPress = event.key;    // we find which key i was press
-
-
-  const showOnTheScreen = document.getElementById('current-alphabet');
-  const currentInnerWord = showOnTheScreen.innerText;                           //here we find the word which is showing on the screen 
-  const currentWord = currentInnerWord.toLowerCase();
-
-  if (keyPress === currentWord) {
-    console.log("Nice You type correct Input");
-
-    // target the score id 
-    const currentScoreElement = document.getElementById('currentScore')
-    const currentScoreInner = currentScoreElement.innerText;
-    const currentScore = parseInt(currentScoreInner);
-
-    // update score card 
-    const newScore = currentScore + 1;
-    currentScoreElement.innerText = newScore;
-
-
-    removeBackgroundId(currentWord);
-    continueGame();
-  }
-  else {
-
-    //target the life score card 
-
-    const lifeScoreElement = document.getElementById('life-score');
-    const lifeScoreInnerText = lifeScoreElement.innerText;
-    const lifeScore = parseInt(lifeScoreInnerText);
-
-
-
-    //update the score card 
-    const newLifeScore = lifeScore - 1;
-    // show the score 
-    lifeScoreElement.innerText = newLifeScore;
-
-
-    console.log("Wrong Type!")
-    removeBackgroundId(currentWord);
-    continueGame();
-
-  }
-
-
-}
-
-
-
+/**
+ * 
+ * ----------------------------------------STEP 1 --------------------------------------
+ * 
+ * 
+ */
 
 function play() {
-  showHidden('home-screen');
-  hideHidden('play-ground');
+
+  //hide everything and show only playground 
+  addHidden('home-screen');
+  addHidden('final-score');
+  removeHidden('play-ground');
+
+  //reset score to default 
+  setTextElement('life-score', 10)
+  setTextElement('current-score', 0)
+
+
+
   continueGame();
+
+
+
+
 }
 
+
+/**
+ * 
+ * ----------------------------------------STEP 2 --------------------------------------
+ * 
+ * 
+ */
 
 function continueGame() {
 
@@ -95,6 +58,48 @@ function continueGame() {
   setBackgroundColorById(finalWord);   // here we target finalword and send as a parameter value !
 
 
+}
+
+
+/**
+ * 
+ * ----------------------------------------STEP 3 --------------------------------------
+ * 
+ * 
+ */
+document.addEventListener('keyup', keyPressEvent);
+
+function keyPressEvent(event) {
+  const keyPress = event.key;    // we find which key i was press
+
+
+  const showOnTheScreen = document.getElementById('current-alphabet');
+  const currentInnerWord = showOnTheScreen.innerText;                           //here we find the word which is showing on the screen 
+  const currentWord = currentInnerWord.toLowerCase();
+
+  if (keyPress === currentWord) {
+
+    const currentScoreNew = getTextElementId('current-score');   //আমরা এখানে currentscore টিকে টার্গেট করেছি function এর মাধ্যমে
+    const newScore = currentScoreNew + 1;
+    setTextElement('current-score', newScore);    // নতুন score টিকে পুরানো update করা হচ্ছে পুরানোটির পরিবর্তে    !!!!!!(universal)!!!!!!!!
+
+
+    removeBackgroundId(currentWord);
+    continueGame();
+  }
+  else {
+
+    const currentLifeScore = getTextElementId('life-score')
+    const newScore = currentLifeScore - 1;
+    setTextElement('life-score', newScore)
+    removeBackgroundId(currentWord);
+    continueGame();
+
+    if (newScore === 0) {
+      gameOver();
+    }
+
+  }
 }
 
 
